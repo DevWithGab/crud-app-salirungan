@@ -1,3 +1,6 @@
 # CRUD Application using Vue, Express & Supabase
 
-Author: Vernyll Jan P. Asis
+Group: Gabriel P. Salirungan
+        Joshua B. Casem
+        Andrei Linus D. Saclao
+        Axle Perez
