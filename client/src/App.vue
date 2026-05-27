@@ -2,7 +2,7 @@
 import { ref, onMounted } from 'vue'
 const API = 'http://localhost:4000/api/items'
 const items = ref([])
-const form = ref({ name: '', description: '' })
+const form = ref({ name: '', description: '', price: '' })
 const editId = ref(null)
 
 async function load() {
@@ -20,12 +20,12 @@ async function save() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(form.value) })
   }
-  form.value = { name: '', description: '' }; load()
+  form.value = { name: '', description: '', price: '' }; load()
 }
 
 function startEdit(item) {
   editId.value = item.id
-  form.value = { name: item.name, description: item.description }
+  form.value = { name: item.name, description: item.description, price: item.price }
 }
 
 async function remove(id) {
@@ -41,11 +41,12 @@ onMounted(load)
     <form @submit.prevent="save">
       <input v-model="form.name" placeholder="Name" required />
       <input v-model="form.description" placeholder="Description" />
+      <input v-model.number="form.price" placeholder="Price" type="number" step="0.01" />
       <button type="submit">{{ editId ? 'Update' : 'Add' }}</button>
     </form>
     <ul>
       <li v-for="item in items" :key="item.id">
-        <strong>{{ item.name }}</strong> — {{ item.description }}
+        <strong>{{ item.name }}</strong> — {{ item.description }} — ₱{{ item.price }}
         <button @click="startEdit(item)">Edit</button>
         <button @click="remove(item.id)">Delete</button>
       </li>
