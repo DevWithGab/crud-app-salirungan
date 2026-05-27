@@ -38,8 +38,18 @@ onMounted(load)
 <template>
   <main>
     <header>
-      <h1>Items</h1>
-      <p class="subtitle">Manage your product inventory</p>
+      <div class="header-content">
+        <div class="header-text">
+          <h1>Items</h1>
+          <p class="subtitle">Manage your product inventory</p>
+        </div>
+        <div class="header-stats">
+          <div class="stat">
+            <span class="stat-label">Total Items</span>
+            <span class="stat-value">{{ items.length }}</span>
+          </div>
+        </div>
+      </div>
     </header>
 
     <div class="content">
@@ -100,9 +110,33 @@ main {
 
 header {
   width: 100%;
-  padding: 3rem 2rem;
+  padding: 0;
   background: #fff;
   border-bottom: 1px solid #e0e0e0;
+  position: relative;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #000;
+}
+
+.header-content {
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-text {
+  flex: 1;
 }
 
 h1 {
@@ -110,6 +144,7 @@ h1 {
   font-size: 2.5rem;
   margin: 0 0 0.5rem 0;
   font-weight: 600;
+  letter-spacing: -0.5px;
 }
 
 .subtitle {
@@ -119,6 +154,37 @@ h1 {
   font-weight: 400;
 }
 
+.header-stats {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+
+.stat-label {
+  color: #999;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  color: #000;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
 .content {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -126,6 +192,8 @@ h1 {
   padding: 3rem 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 h2 {
@@ -306,6 +374,16 @@ ul {
 
   .item-card {
     flex-direction: column;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .header-stats {
+    width: 100%;
   }
 }
 </style>
